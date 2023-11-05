@@ -82,6 +82,11 @@ function generateType(content_type) {
         union.push(`{${uid}:${type}}`);
       })
       return renderUnion(union);
+    },
+    global_field: (field) => {
+      const { schema } = field;
+      const fieldTypes = traveller(schema);
+      return renderFields({ fields: fieldTypes });
     }
   };
 
