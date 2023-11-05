@@ -12,8 +12,10 @@ export const renderFields = ({ fields }) => {
 };
 
 export const renderFieldType = ({ field, type }) => {
-  const { uid, mandatory, multiple } = field;
+  const { uid, mandatory, multiple, field_metadata } = field;
+  const { description } = field_metadata
   return [
+    description ? `/* ${description} */\n` : '',
     uid,
     mandatory ? '' : '?',
     ':',

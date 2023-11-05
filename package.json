@@ -9,7 +9,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc --module commonjs && rollup -c rollup.config.js && chmod +x dist/index.js",
-    "test": "jest --watch"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --watch"
   },
   "keywords": [],
   "author": "",
