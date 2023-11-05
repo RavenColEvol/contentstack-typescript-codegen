@@ -2,7 +2,7 @@ import { program } from "commander";
 import { Region, Stack } from "contentstack";
 import { generateTypes } from "./main";
 import path from 'path';
-import { writeFileSync, readFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync } from 'fs';
 const chalk = require('chalk');
 
 // takes api_key
@@ -13,12 +13,12 @@ program
   .option('-t, --token <delivery_token>', 'Delivery Token')
   .option('-e, --environment <environment>', 'Environment')
   .option('-r, --region <region>', 'Region (na, eu)')
-  // .option('-o, --output <output_dir>', 'Output Directory')
+  .option('-o, --output <output_dir>', 'Output Directory')
   .parse(process.argv);
 
 const options = program.opts();
 
-const required = { apiKey: 'api key', token: 'delivery token', environment: 'environment'};
+const required = { apiKey: 'api key', token: 'delivery token', environment: 'environment', 'output': 'output'};
 Object.entries(required).forEach(([key, name]) => {
   if (!options[key]) {
     console.log(
@@ -29,7 +29,16 @@ Object.entries(required).forEach(([key, name]) => {
 })
 
 // should fetch content types details and should emit types
-const { apiKey, token, environment, region = 'na', output = path.join(process.cwd(), 'types') } = options;
+const { apiKey, token, environment, region = 'na', output: _output } = options;
+const output = path.resolve(process.cwd(), _output);
+
+if (!existsSync(output)) {
+  console.log(
+    chalk.red(`Please ensure given directory ${output} exists.`)
+  );
+  process.exit(0);
+}
+
 const regionMap = {
   'na': Region.US,
   'eu': Region.EU
