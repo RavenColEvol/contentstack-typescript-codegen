@@ -253,7 +253,7 @@ const content_types = [
       {
         data_type: "reference",
         display_name: "Reference",
-        reference_to: ["rtessss", "test", "test2"],
+        reference_to: ["blog_post", "rtessss", "test", "test2"],
         field_metadata: {
           ref_multiple: false,
           ref_multiple_content_types: true,
@@ -302,8 +302,8 @@ const content_types = [
 ];
 
 describe("TypesGenerator", () => {
-  it("should be able to add content types", () => {
-    const typeFiles = generateTypes(content_types);
+  it("should be able to add content types", async () => {
+    const typeFiles = await generateTypes(content_types);
     for(const file of typeFiles) {
       const { name, content } = file;
       console.log(content);

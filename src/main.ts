@@ -61,7 +61,7 @@ function generateType(content_type) {
         const typeName = getFieldsName(ref);
 
         union.push(typeName);
-        if(!imports[file]) {
+        if(!imports[file] && uid !== ref) {
           imports[file] = [typeName];
         }
       });
