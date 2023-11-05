@@ -7,7 +7,7 @@ const chalk = require('chalk');
 
 // takes api_key
 program
-  .name('cs-ts-generator')
+  .name('types-generator')
   .description('CLI tool to generate types for contentstack entries.')
   .option('-a, --apiKey <api_key>', 'Stack API Key')
   .option('-t, --token <delivery_token>', 'Delivery Token')
