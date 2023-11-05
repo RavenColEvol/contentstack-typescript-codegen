@@ -9,6 +9,7 @@ types-generator -a <api_key> -t <delivery_token> -e <environment> -o <output_dir
 ```
 
 Above command will generate typescript types file for all the content types in your stack.
+
 ---
 
 Below is CLI options
