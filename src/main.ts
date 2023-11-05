@@ -1,14 +1,17 @@
+import * as prettier from "prettier";
 import { renderFieldType, renderFields, renderImports, renderInterface, renderUnion } from "./renderUtils";
 import { getFieldsName, getTypeFileName } from "./utils";
 
-export function generateTypes(content_types) {
+export async function generateTypes(content_types) {
   const files = [];
   for (const content_type of content_types) {
     const { uid } = content_type;
 
     files.push({
       name: `${getTypeFileName(uid)}.ts`,
-      content: generateType(content_type),
+      content: await prettier.format(generateType(content_type), {
+        parser: 'typescript'
+      }),
     });
   }
   return files;

@@ -46,7 +46,7 @@ const baseTypePath = path.join(__dirname, 'contentstack', 'type.ts');
   const { content_types } = await stack.getContentTypes({
     include_global_field_schema: true
   });
-  const files = generateTypes(content_types);
+  const files = await generateTypes(content_types);
   files.push({
     name: 'baseTypes.ts',
     content: readFileSync(baseTypePath, 'utf-8')
