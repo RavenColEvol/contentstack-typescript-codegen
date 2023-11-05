@@ -13,7 +13,7 @@ program
   .option('-t, --token <delivery_token>', 'Delivery Token')
   .option('-e, --environment <environment>', 'Environment')
   .option('-r, --region <region>', 'Region (na, eu)')
-  .option('-o, --output <output_dir>', 'Output Directory')
+  // .option('-o, --output <output_dir>', 'Output Directory')
   .parse(process.argv);
 
 const options = program.opts();
@@ -29,7 +29,7 @@ Object.entries(required).forEach(([key, name]) => {
 })
 
 // should fetch content types details and should emit types
-const { apiKey, token, environment, region = 'na', output = path.join(__dirname, 'types') } = options;
+const { apiKey, token, environment, region = 'na', output = path.join(process.cwd(), 'types') } = options;
 const regionMap = {
   'na': Region.US,
   'eu': Region.EU
@@ -41,7 +41,7 @@ const stack = new Stack({
   delivery_token: token
 });
 
-const baseTypePath = path.join(__dirname, 'contentstack', 'type.ts');
+const baseTypePath = path.join(__dirname, 'types', 'contentstack', 'type.d.ts');
 (async () => {
   const { content_types } = await stack.getContentTypes({
     include_global_field_schema: true
