@@ -34,3 +34,7 @@ export type Link = {
 };
 export type RTE = Block;
 export type File = Asset;
+
+export interface Entry extends Base {
+  locale: string;
+}
