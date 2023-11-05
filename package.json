@@ -1,7 +1,7 @@
 {
   "name": "contentstack-types-generator",
   "version": "1.0.0",
-  "description": "",
+  "description": "This package generate types for your content types.",
   "main": "dist/index.js",
   "bin": {
     "types-generator": "./dist/index.js"
@@ -11,9 +11,9 @@
     "build": "tsc --module commonjs && rollup -c rollup.config.js && chmod +x dist/index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["contentstack", "types"],
+  "author": "Ravi Lamkoti<ravilamkoti@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.6",
     "@types/node": "^20.8.10",
