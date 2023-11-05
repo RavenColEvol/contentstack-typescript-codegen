@@ -1,3 +1,6 @@
+## Contentstack Types Generator
+![Content Type to Typescript](./asset/CT-Type.jpeg)
+
 ### 1. Install
 ```
 npm i --save-dev contentstack-types-generator
