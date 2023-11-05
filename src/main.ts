@@ -1,3 +1,4 @@
+import { renderFieldType, renderFields, renderImports, renderInterface, renderUnion } from "./renderUtils";
 import { getFieldsName, getTypeFileName } from "./utils";
 
 export function generateTypes(content_types) {
@@ -12,38 +13,6 @@ export function generateTypes(content_types) {
   }
   return files;
 }
-
-const renderImports = (imports: Record<string, string[]>) => {
-  const fileImports = Object.entries(imports);
-  return fileImports
-    .map(
-      ([name, imports]) => `import { ${imports.join(", ")} } from './${name}'`
-    )
-    .join("\n");
-};
-
-const renderFields = ({ fields }) => {
-  return `{\n${fields.join("\t\n")}\n}`;
-};
-
-const renderFieldType = ({ field, type }) => {
-  const { uid, mandatory, multiple } = field;
-  return [
-    uid,
-    mandatory ? '' : '?',
-    ':',
-    type,
-    multiple ? '[]': '',
-    ';'
-  ].join('');
-}
-
-const renderInterface = ({ name, fields }) => {
-  return [
-    `export interface ${name} extends Entry `,
-    renderFields({ fields }),
-  ].join("");
-};
 
 function generateType(content_type) {
   const { uid, schema } = content_type;
@@ -81,6 +50,36 @@ function generateType(content_type) {
       }
       return type;
     },
+    reference: (field) => {
+      const { reference_to } = field;
+      const union = [];
+      reference_to.forEach(ref => {
+        const file = getTypeFileName(ref);
+        const typeName = getFieldsName(ref);
+
+        union.push(typeName);
+        if(!imports[file]) {
+          imports[file] = [typeName];
+        }
+      });
+      return renderUnion(union);
+    },
+    group: (field) => {
+      const { schema } = field;
+      const fieldTypes = traveller(schema);
+      return renderFields({ fields: fieldTypes });
+    },
+    blocks: (field) => {
+      const { blocks } = field;
+      const union = [];
+      blocks.forEach(block => {
+        const { uid, schema } = block;
+        const fieldTypes = traveller(schema);
+        const type = renderFields({fields: fieldTypes})
+        union.push(`{${uid}:${type}}`);
+      })
+      return renderUnion(union);
+    }
   };
 
   const traveller = (schema) => {
