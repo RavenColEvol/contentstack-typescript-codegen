@@ -11,7 +11,10 @@
     "build": "tsc --module commonjs && rollup -c rollup.config.js && chmod +x dist/index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --watch"
   },
-  "keywords": ["contentstack", "types"],
+  "keywords": [
+    "contentstack",
+    "types"
+  ],
   "author": "Ravi Lamkoti<ravilamkoti@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -21,6 +24,7 @@
     "rollup": "^2.79.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.1.1",
@@ -31,7 +35,6 @@
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
     "contentstack": "^3.17.1",
-    "prettier": "^3.0.3",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "prettier": "^3.0.3"
   }
 }
