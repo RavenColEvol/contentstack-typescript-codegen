@@ -26,13 +26,13 @@ function generateType(content_type) {
 
   const visitors = {
     text: (field) => {
-      const choices = field?.enum.choices;
+      const choices = field?.enum?.choices;
       if (!choices) return "string";
       return renderUnion(choices.map(({ value }) => value))
     },
     isodate: () => "string",
     number: (field) => {
-      const choices = field?.enum.choices;
+      const choices = field?.enum?.choices;
       if (!choices) return "number";
       return renderUnion(choices.map(({ value }) => value))
     },
