@@ -1,6 +1,6 @@
 {
   "name": "contentstack-types-generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This package generate types for your content types.",
   "main": "dist/index.js",
   "bin": {
