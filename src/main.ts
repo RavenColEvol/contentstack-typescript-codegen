@@ -25,9 +25,17 @@ function generateType(content_type) {
   };
 
   const visitors = {
-    text: () => "string",
+    text: (field) => {
+      const choices = field?.enum.choices;
+      if (!choices) return "string";
+      return renderUnion(choices.map(({ value }) => value))
+    },
     isodate: () => "string",
-    number: () => "number",
+    number: (field) => {
+      const choices = field?.enum.choices;
+      if (!choices) return "number";
+      return renderUnion(choices.map(({ value }) => value))
+    },
     boolean: () => "boolean",
     file: () => {
       const type = "File";
